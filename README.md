@@ -1,6 +1,6 @@
 # Bank Account Management System (C++)
 
-A command-line bank account management system built in C++ to practice and demonstrate core object-oriented design principles — inheritance, polymorphism, abstraction, and composition — through a realistic, non-trivial domain instead of toy examples.
+A command-line bank account management system built in C++ to practice and demonstrate core object-oriented design principles-inheritance, polymorphism, abstraction, and composition, through a realistic, non-trivial domain instead of toy examples.
 
 ## Features
 
@@ -9,7 +9,7 @@ A command-line bank account management system built in C++ to practice and demon
 - Deposit, withdraw, check balance, and view per-account transaction history
 - Fund transfers between any two accounts, with atomic all-or-nothing semantics (if the withdrawal side fails, the deposit side never happens)
 - Interest calculation, resolved polymorphically per account type
-- Menu-driven CLI — create accounts and customers interactively, or seed data on startup
+- Menu-driven CLI-create accounts and customers interactively, or seed data on startup
 
 ## OOP Concepts Demonstrated
 
@@ -75,13 +75,13 @@ Accounts are looked up by account number, which you'll be prompted for in each o
 A few decisions worth calling out, since they weren't accidents:
 
 - **`Account` is abstract on purpose.** Every account has to be *some* concrete type (Savings or Checking); a bare, typeless `Account` doesn't make sense as a real object, so the language enforces that at compile time via a pure virtual method (`calculateInterest()`).
-- **Only the piece that actually varies per account type is virtual.** `applyWithdrawal()` is virtual (Savings blocks overdraft, Checking allows it); `withdraw()` itself just calls that and logs the result — it doesn't need to be virtual, because logging behavior never differs by account type.
-- **Transfers don't reuse `withdraw()`/`deposit()` directly.** They go through `debitForTransfer()`/`creditForTransfer()` instead, which share the exact same rule-checking (so a `CheckingAccount`'s overdraft limit is still respected mid-transfer) but log a single `Transfer` entry instead of a `Withdrawal` + `Deposit` pair — so history reads cleanly with no duplicate lines.
-- **Ownership is modeled with `std::unique_ptr`, not because of polymorphism alone.** `Customer`'s accounts need pointer stability — code that creates a `Customer`, keeps a raw pointer to it, and then inserts it into `Bank`'s customer list needs that pointer to stay valid even if the underlying vector reallocates. `vector<unique_ptr<T>>` guarantees that; `vector<T>` does not.
+- **Only the piece that actually varies per account type is virtual.** `applyWithdrawal()` is virtual (Savings blocks overdraft, Checking allows it); `withdraw()` itself just calls that and logs the result. It doesn't need to be virtual, because logging behavior never differs by account type.
+- **Transfers don't reuse `withdraw()`/`deposit()` directly.** They go through `debitForTransfer()`/`creditForTransfer()` instead, which share the exact same rule-checking (so a `CheckingAccount`'s overdraft limit is still respected mid-transfer) but log a single `Transfer` entry instead of a `Withdrawal` + `Deposit` pair, so history reads cleanly with no duplicate lines.
+- **Ownership is modeled with `std::unique_ptr`, not because of polymorphism alone.** `Customer`'s accounts need pointer stability, code that creates a `Customer`, keeps a raw pointer to it, and then inserts it into `Bank`'s customer list needs that pointer to stay valid even if the underlying vector reallocates. `vector<unique_ptr<T>>` guarantees that; `vector<T>` does not.
 
 ## Known Limitations
 
-- **No persistence.** All data lives in memory for the duration of one run. Any customer or account created through the menu disappears when the program exits — only the hardcoded seed data reappears on the next run.
+- **No persistence.** All data lives in memory for the duration of one run. Any customer or account created through the menu disappears when the program exits, only the hardcoded seed data reappears on the next run.
 - Interest is calculated on demand, not automatically applied to the balance over time.
 
 ## Possible Future Improvements
