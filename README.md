@@ -1,6 +1,6 @@
 # Bank Account Management System (C++)
 
-A command-line bank account management system built in C++ to practice and demonstrate core object-oriented design principles-inheritance, polymorphism, abstraction, and composition, through a realistic, non-trivial domain instead of toy examples.
+A command-line bank account management system built in C++ to practice and demonstrate core object-oriented design principles-inheritance, polymorphism, abstraction, and composition.
 
 ## Features
 
@@ -81,7 +81,7 @@ A few decisions worth calling out, since they weren't accidents:
 
 ## Known Limitations
 
-- **No persistence.** All data lives in memory for the duration of one run. Any customer or account created through the menu disappears when the program exits, only the hardcoded seed data reappears on the next run.
+- All data lives in memory for the duration of one run. Any customer or account created through the menu disappears when the program exits, only the hardcoded seed data reappears on the next run.
 - Interest is calculated on demand, not automatically applied to the balance over time.
 
 ## Possible Future Improvements
